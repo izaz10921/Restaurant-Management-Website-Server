@@ -33,6 +33,17 @@ async function run() {
     const foodCollection = client.db('FoodHub').collection('allFoods');
     const requestedFoodCollection = client.db('FoodHub').collection('requestFood');
 
+
+    //add food
+
+    app.post('/allFoods',async(req,res) =>{
+      const userAddedFood  = req.body;
+      console.log(userAddedFood );
+      const result =await foodCollection.insertOne(userAddedFood );
+      res.send(result);
+    });
+
+
     app.get('/allFoods',async(req,res) =>{
 
       const cursor = foodCollection.find();
