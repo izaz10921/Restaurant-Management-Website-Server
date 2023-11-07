@@ -9,7 +9,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 //middleware
 app.use(cors());
 app.use(express.json());
-console.log(process.env.DB_PASS)
+
 
 
 
@@ -36,9 +36,25 @@ async function run() {
 
     //add food
 
+    app.get('/allFoods',async(req,res) => {
+
+      console.log(req.query.email);
+      let query ={};
+      if(req.query?.email){
+        query ={donorEmail:req.query.email}
+      }
+      
+      
+      const result = await foodCollection.find(query).toArray();
+      res.send(result);
+
+
+
+    })
+
     app.post('/allFoods',async(req,res) =>{
       const userAddedFood  = req.body;
-      console.log(userAddedFood );
+      // console.log(userAddedFood );
       const result =await foodCollection.insertOne(userAddedFood );
       res.send(result);
     });
@@ -61,13 +77,13 @@ async function run() {
       res.send(result);
 
     })
-
+   
 
     //request food
 
     app.post('/requestFood',async(req,res) =>{
       const requestFood = req.body;
-      console.log(requestFood);
+      // console.log(requestFood);
       const result =await requestedFoodCollection.insertOne(requestFood);
       res.send(result);
     });
