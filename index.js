@@ -48,9 +48,27 @@ async function run() {
       const result = await foodCollection.find(query).toArray();
       res.send(result);
 
+    })
+
+    app.delete('/allFoods/:id',async(req,res) =>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await foodCollection.deleteOne(query);
+      res.send(result);
+
+
+
+
 
 
     })
+
+
+
+
+
+
+
 
     app.post('/allFoods',async(req,res) =>{
       const userAddedFood  = req.body;
