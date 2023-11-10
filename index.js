@@ -41,7 +41,7 @@ async function run() {
       console.log(req.query.email);
       let query ={};
       if(req.query?.email){
-        query ={donorEmail:req.query.email}
+        query ={makerEmail:req.query.email}
       }
       
       
@@ -49,6 +49,10 @@ async function run() {
       res.send(result);
 
     })
+
+
+
+
 
     app.delete('/allFoods/:id',async(req,res) =>{
       const id = req.params.id;
