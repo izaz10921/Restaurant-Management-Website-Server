@@ -107,6 +107,34 @@ async function run() {
     });
 
 
+    app.put("/allFoods/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      
+     
+      const updateItem = req.body;
+      const item = {
+        $set: {
+          foodName: updateItem.foodName,
+          foodImageURL: updateItem.foodImageURL,
+          makerEmail: updateItem.makerEmail,
+          makerName: updateItem.makerName,
+          price: updateItem.price,
+          foodOrigin: updateItem.foodOrigin,
+          description: updateItem.description,
+          foodQuantity: updateItem.foodQuantity,
+          foodCategory: updateItem.foodCategory
+        },
+      };
+      const result = await foodCollection.updateOne(
+        filter,
+        item
+      );
+
+      res.send(result);
+    });
+
+
 
 
 
