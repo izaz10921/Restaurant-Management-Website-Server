@@ -31,7 +31,7 @@ async function run() {
     await client.connect();
 
     const foodCollection = client.db('FoodHub').collection('allFoods');
-    const requestedFoodCollection = client.db('FoodHub').collection('requestFood');
+    const orderFoodCollection = client.db('FoodHub').collection('orderFood');
 
 
     //add food
@@ -97,12 +97,12 @@ async function run() {
     })
    
 
-    //request food
+    //order food
 
-    app.post('/requestFood',async(req,res) =>{
-      const requestFood = req.body;
-      // console.log(requestFood);
-      const result =await requestedFoodCollection.insertOne(requestFood);
+    app.post('/orderFood',async(req,res) =>{
+      const orderFood = req.body;
+      console.log(orderFood);
+      const result =await orderFoodCollection.insertOne(orderFood);
       res.send(result);
     });
 
