@@ -50,23 +50,19 @@ async function run() {
 
     })
 
+    app.get('/orderFood',async(req,res) => {
 
-
-
-
-    app.delete('/allFoods/:id',async(req,res) =>{
-      const id = req.params.id;
-      const query = {_id: new ObjectId(id)}
-      const result = await foodCollection.deleteOne(query);
+      console.log(req.query.email);
+      let query ={};
+      if(req.query?.email){
+        query ={buyerEmail:req.query.email}
+      }
+      
+      
+      const result = await orderFoodCollection.find(query).toArray();
       res.send(result);
 
-
-
-
-
-
     })
-
 
 
 
