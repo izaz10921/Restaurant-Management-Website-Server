@@ -36,19 +36,55 @@ async function run() {
 
     //add food
 
-    app.get('/allFoods',async(req,res) => {
+   
+  // app.get('/allFoods',async(req,res) => {
 
-      console.log(req.query.email);
-      let query ={};
-      if(req.query?.email){
-        query ={makerEmail:req.query.email}
-      }
-      
-      
-      const result = await foodCollection.find(query).toArray();
-      res.send(result);
+    
+  //   let query ={};
+  //   if(req.query?.email){
+  //     query ={makerEmail:req.query.email}
+  //   }
+    
+    
+  //   const result = await foodCollection.find(query).toArray();
+  //   res.send(result);
 
-    })
+  // })
+
+
+  // app.get('/allFoods',async(req,res) =>{
+
+  //   const filter = req.query;
+  //   console.log(filter);
+  //   const query = {
+  //     foodName:{$regex: filter.search, $options:'i'}
+  //   };
+   
+  //   const result = await foodCollection.find(query).toArray();
+  //   res.send(result);
+
+  // })
+
+
+
+  app.get('/allFoods', async (req, res) => {
+    let query = {};
+
+    if (req.query?.email) {
+        query = { makerEmail: req.query.email };
+    } else if (req.query?.search) {
+        query = { foodName: { $regex: req.query.search, $options: 'i' } };
+    }
+
+    const result = await foodCollection.find(query).toArray();
+    res.send(result);
+});
+
+
+
+
+
+
 
     app.get('/orderFood',async(req,res) => {
 
@@ -78,13 +114,11 @@ async function run() {
     });
 
 
-    app.get('/allFoods',async(req,res) =>{
+    
 
-      const cursor = foodCollection.find();
-      const result = await cursor.toArray();
-      res.send(result);
 
-    })
+
+
 
     app.get('/allFoods/:id',async(req,res) => {
 
