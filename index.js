@@ -86,19 +86,22 @@ async function run() {
 
 
 
-    app.get('/orderFood',async(req,res) => {
+app.get('/orderFood', async (req, res) => {
+  console.log(req.query.email);
+  let query = {};
 
-      console.log(req.query.email);
-      let query ={};
-      if(req.query?.email){
-        query ={buyerEmail:req.query.email}
-      }
-      
-      
-      const result = await orderFoodCollection.find(query).toArray();
-      res.send(result);
+  if (req.query?.email) {
+      query = { buyerEmail: req.query.email };
+  }
 
-    })
+  const result = await orderFoodCollection
+      .find(query)
+      .sort({ orderQuantity: -1 }) // Sort by orderQuantity in descending order
+       // Limit the results to the top 6
+      .toArray();
+
+  res.send(result);
+});
 
 
 
