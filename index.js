@@ -36,34 +36,6 @@ async function run() {
 
     //add food
 
-   
-  // app.get('/allFoods',async(req,res) => {
-
-    
-  //   let query ={};
-  //   if(req.query?.email){
-  //     query ={makerEmail:req.query.email}
-  //   }
-    
-    
-  //   const result = await foodCollection.find(query).toArray();
-  //   res.send(result);
-
-  // })
-
-
-  // app.get('/allFoods',async(req,res) =>{
-
-  //   const filter = req.query;
-  //   console.log(filter);
-  //   const query = {
-  //     foodName:{$regex: filter.search, $options:'i'}
-  //   };
-   
-  //   const result = await foodCollection.find(query).toArray();
-  //   res.send(result);
-
-  // })
 
 
 
@@ -96,8 +68,7 @@ app.get('/orderFood', async (req, res) => {
 
   const result = await orderFoodCollection
       .find(query)
-      .sort({ orderQuantity: -1 }) // Sort by orderQuantity in descending order
-       // Limit the results to the top 6
+      .sort({ orderQuantity: -1 }) 
       .toArray();
 
   res.send(result);
